@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+table {
+    display: flex;
+    justify-content: center;
+}
+@keyframes star {
+    0% {
+        background-color: orange;
+    }
+    50% {
+        background-color: red;
+    }
+    100% {
+        background-color: yellow;
+    }
+}
+.christmas-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.christmas-tree-branch {
+    background-color: green;
+    border: 1px solid black;
+    padding: 20px 10px;
+    text-align: center;
+}
+.christmas-tree-star-branch {
+    animation: star 1s infinite;
+    background-color: yellow;
+    border: 1px solid black;
+}
