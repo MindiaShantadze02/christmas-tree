@@ -1,8 +1,54 @@
-const christmasTreePage = document.querySelector('.christmas-tree-page');
+const startForm = document.querySelector('.start-page-form');
 
-function drawChristmasTree(size) {
+// event listeners
+startForm.addEventListener("submit", validateStartForm);
+
+// function for validating start form
+function validateStartForm(ev) {
+    ev.preventDefault();
+
+    // errors object
+    let errors = {};
+
+    // checking if user entered everything
+    if (!startForm.userName.value) errors.userName = "You should enter your name";
+
+    if (!startForm.treeSize.value) errors.treeSize = "You should enter size of the tree";
+    else if (Number(startForm.treeSize.value) > 30) errors.treeSize = "Tree size must be less than 30";
+    else if (Number(startForm.treeSize.value) < 5) errors.treeSize = "Tree size must be greater than 5";
+
+    // if there are no errors call the drawChristmasTree function
+    if (!errors.treeSize && !errors.userName) {
+        drawChristmasTree(Number(startForm.treeSize.value), startForm.userName.value);
+    }
+
+    // display errors if there are any
+    else {
+        const errorPlace = document.createElement('div');
+        errorPlace.classList.add("error-place");
+        document.querySelector(".start-page").appendChild(errorPlace);
+        
+        let errorStr = `${errors.treeSize ?? errors.treeSize} <br> ${errors.userName ?? errors.userName} <br><br>`;
+        errorPlace.innerHTML = errorStr;
+    }
+}
+
+// function for drawing christmas tree
+function drawChristmasTree(size, userName) {
     // getting table from DOM to build christmas tree on it
     const christmasTree = document.querySelector('.christmas-tree');
+    const userNameSpan = document.querySelector('.name-span');
+
+    // displayng user name
+    userNameSpan.innerHTML = userName;
+
+    // getting start and christmas tree pages from DOM
+    const startPage = document.querySelector('.start-page');
+    const christmasTreePage = document.querySelector('.christmas-tree-page');
+    
+    // chaning page from start to christmas tree when button is clicked
+    christmasTreePage.style.display = 'block';
+    startPage.style.display = 'none';
 
     // defining new array to hold tree branches
     let newArr = [];
@@ -37,5 +83,3 @@ function drawChristmasTree(size) {
         christmasTree.appendChild(row);
     }
 }
-
-drawChristmasTree(40);
